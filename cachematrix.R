@@ -1,15 +1,33 @@
-## Put comments here that give an overall description of what your
-## functions do
+## This function caching the inverse function
+## There are very costly computational processes like the inverse of a matrix
+## For this reason this function was created
 
-## Write a short comment describing this function
+## This function was created to caching its inverse
 
-makeCacheMatrix <- function(x = matrix()) {
-
+makeCacheMatrix <- function(x = matrix()){
+        inversa = NULL
+        grupo = function(y){
+                x <<- y
+                inversa <<- NULL
+        }
+        obtener <- function() x
+        grupo_inver <- function(inverso_1) inversa <<- inverso_1
+        obtener_inver <- function() inversa
+        list(inversa=inversa, grupo=grupo, grupo_inver=grupo_inver
+             , obtener_inver=obtener_inver, obtener=obtener)
 }
 
 
-## Write a short comment describing this function
-
-cacheSolve <- function(x, ...) {
-        ## Return a matrix that is the inverse of 'x'
+## This function return the inverse matrix
+## My function was made in spanish. Grupo = set, obtenet = get
+cacheSolve <- function(x, ...){
+        inversa = x$obtener_inver()
+        if(!is.null(inversa)){
+               return(inversa)
+                
+        }
+        matr = x$obtener()
+        inversa = solve(matr, ...)
+        x$grupo_inver(inversa)
+        inversa
 }
